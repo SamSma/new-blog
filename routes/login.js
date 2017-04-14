@@ -12,21 +12,26 @@ app.use(function(req,res){
 })
 //登录页面
 router.get('/',function (req,res) {
-    res.render('login')
-})
+
+    res.render('login',{
+        status : 1,
+        msg : ''
+    })
+});
 router.post('/',function (req,res) {
   var user = req.body.user;
   var pass = req.body.password;
   if(user == "" || pass == ""){
-      res.json({
-          status : 2,
+      res.render('login',{
+          status :2,
           msg : '账号或密码不能为空'
       })
       return ;
   }
   if(user != 'admin' || pass != 'admin'){
-      res.json({
-          status : 3,
+
+      res.render('login',{
+          status :3,
           msg : '账号或密码不正确'
       })
       return ;
