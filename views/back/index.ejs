@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/stage.css">
+    <link rel="stylesheet" href="../css/metisMenu.css">
+    <!--[if lt IE9] >
+    <script type="text/javascript" src="js/html5.js"></script>
+    <script type="text/javascript" src="js/placeholder-1.0.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--左侧-->
+<nav class="stage_nav">
+    <header class="header pd_ten clearfix">
+        <div class="pull-left pd_ten">
+            <h1><a href="javacript:;"><img class="img-circle" src="../images/back/person.jpg" alt=""></a></h1>
+        </div>
+        <div class="pull-right">
+            <h5>超级管理员</h5>
+            <p>嗨，欢迎超级管理员</p>
+        </div>
+    </header>
+    <ul class="metismenu" id="metismenu">
+        <li class="one">
+            <a href="javascript:;" aria-disabled="true"> <i class="fa fa-home"></i> 首页 </a>
+
+        </li>
+        <li class="one">
+            <a class="has-arrow"  href="javascript:;" > <i class="fa fa-home"></i> 列表 </a>
+            <ul aria-expanded="false">
+                <li>
+                    <a href="javascript:;"> 消息</a>
+                </li>
+            </ul>
+        </li>
+        <li class="one">
+            <a class="has-arrow"  href="javascript:;" > <i class="fa fa-home"></i> 列表</a>
+            <ul aria-expanded="false">
+                <li>
+                    <a href="javascript:;"> 消息</a>
+                </li>
+                <li>
+                    <a href="javascript:;"> 消息</a>
+                </li>
+                <li>
+                    <a href="javascript:;"> 消息</a>
+                </li>
+                <li>
+                    <a href="javascript:;"> 消息</a>
+                </li>
+                <li>
+                    <a href="javascript:;"> 消息</a>
+                </li>
+                <li>
+                    <a href="javascript:;"> 消息</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+
+</nav>
+<!--右侧-->
+<section class="stage_con">
+<!--logo-->
+    <nav class="logo clearfix pd_ten">
+        <div class="pull-left">
+
+        </div>
+        <div class="pull-right">
+            <a href="/login">
+                <i class="fa fa-sign-out"></i>退出
+            </a>
+        </div>
+    </nav>
+    <div class="stage_section pd_ten">
+
+    </div>
+    <footer class="footer pd_ten text-right ">
+        @2107-2018
+    </footer>
+</section>
+
+
+<script src="../js/jquery.min.js"></script>
+<!--//菜单-->
+<script src="../js/metisMenu.min.js"></script>
+<!--滚动条-->
+<script src="../js/jquery.slimscroll.min.js"></script>
+<script>
+    $("#metismenu").metisMenu();
+    //高度
+    var h = $(window).height()-105;
+    $("#metismenu").slimScroll({
+        height:h ,
+        size:"5px"
+    });
+</script>
+</body>
+</html>
