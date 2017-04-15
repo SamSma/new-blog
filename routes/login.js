@@ -46,6 +46,7 @@ router.post('/',function (req,res) {
             })
             return ;
         }
+        res.cookie('name' , user );
         res.redirect('/back');
     })
 })

@@ -7,7 +7,7 @@ mongoose.connect('mongodb://192.168.0.113:27017/blog');
 var db = mongoose.connection;
 
 db.on('error',function (err) {
-    console.log(err)
+    console.log(err);
 })
 
 db.on('open',function () {
