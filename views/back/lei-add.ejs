@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+</head>
+<body>
+<h2>
+    分类添加
+</h2>
+<div style="margin-bottom: 10px;">
+    <input id="title" class="form-control" type="text">
+</div>
+<a id="sure" href="javascript:;" class="btn btn-block btn-primary">确定</a>
+
+<script src="/js/jquery.min.js"></script>
+<script>
+    $("#sure").click(function () {
+        var tit = $("#title").val();
+        if(tit==''){
+            alert("不能为空")
+        }else{
+            $.post("/back/leiAdd",{ title : tit},function (data,status) {
+                if(status == "success"){
+                    if(data.status != 3){
+                        alert(data.msg);
+                        $("#title").val('');
+                    }else{
+                        alert(data.msg);
+                        $("#main_src",parent.document).get(0).src='/back/leiList';
+                    }
+
+                }
+            })
+        }
+
+    })
+
+</script>
+</body>
+</html>

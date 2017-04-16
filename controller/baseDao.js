@@ -14,7 +14,7 @@ base.findOne = function (bean,obj,callback) {
     var Info = require('./../model/'+bean);
     Info.findOne(obj,callback);
 }
-//it查询
+//id查询
 base.findbyId = function (bean,id,callback) {
     var Info = require('./../model/'+bean);
     Info.findbyId(id,callback);
@@ -34,6 +34,8 @@ base.find = function (bean,obj,callback) {
     var Info = require('./../model/'+bean);
     Info.find(obj,callback);
 }
+
+
 
 
 

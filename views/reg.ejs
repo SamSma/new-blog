@@ -8,10 +8,26 @@
     <title>注册页面</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <style>
+        html,body{
+            height: 100%;
+            padding-top: 120px;
+            background: url("/images/login/loginBg.png") center center no-repeat;
+            background-size: cover;
+            -moz-background-size: cover;
+            -webkit-background-size: cover;
+            -ms-background-size: cover;
+            -o-background-size: cover;
+        }
+        label{
+            color: #fff;
+        }
+
+    </style>
 </head>
-<body>
+<body >
 <div class="container">
-    <form method="post" action="/login/reg">
+    <form method="post" action="/login/reg" >
         <div class="form-group">
             <label for="user">用户名</label>
             <input type="text" class="form-control" id="user"  name="user" placeholder="用户名">

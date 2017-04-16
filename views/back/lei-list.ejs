@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-table.min.css">
+</head>
+<body>
+<table id="list">
+
+</table>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/bootstrap-table.min.js"></script>
+<script src="/js/bootstrap-table-zh-CN.min.js"></script>
+<script>
+    $("#list").bootstrapTable({
+        url:'/back/leiList',
+        method:'post',
+        queryParams:query,
+        sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+        pagination: true,
+        sortOrder : '1',
+        pageNumber:1,                       //初始化加载第一页，默认第一页
+        pageSize: 10,                       //每页的记录行数（*）
+        pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+        columns:[{
+            field : 'title',
+            title : "名称",
+            align :'center',
+        },{
+            field : '',
+            title :'操作',
+            align :'center',
+            formatter : set
+        }],
+        responseHandler:function (res) {
+            res.rows  = res.data;
+            res.total = res.count;
+          return  res;
+        }
+    })
+    function query(params) {
+        console.log(params)
+        var param = {};
+        param.limit = params.limit;
+        param.offset = params.offset;
+        param.order = 1 ;
+        return param;
+    }
+    function set(value,row,index) {
+        return '<a href="javascript:;">修改</a> | <a href="javascript:;">查看</a> | <a href="javascript:;">删除</a>' ;
+    }
+</script>
+</body>
+</html>

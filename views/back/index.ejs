@@ -30,35 +30,35 @@
 
         </li>
         <li class="one">
-            <a class="has-arrow"  href="javascript:;" > <i class="fa fa-home"></i> 列表 </a>
+            <a   href="javascript:;" > <i class="fa fa-gear"></i> 设置 </a>
+        </li>
+        <li class="one">
+            <a class="has-arrow"  href="javascript:;" > <i class="fa fa-home"></i> 分类管理 </a>
             <ul aria-expanded="false">
                 <li>
-                    <a href="javascript:;"> 消息1</a>
+                    <a data-url="/back/leiList" href="javascript:;"> 列表 </a>
                 </li>
+                <li>
+                    <a data-url="/back/leiAdd"   href="javascript:;"> 添加 </a>
+                </li>
+
             </ul>
         </li>
         <li class="one">
-            <a class="has-arrow"  href="javascript:;" > <i class="fa fa-home"></i> 列表</a>
+            <a class="has-arrow"  href="javascript:;" > <i class="fa fa-file-text"></i> 文章管理 </a>
             <ul aria-expanded="false">
                 <li>
-                    <a href="javascript:;"> 消息</a>
+                    <a data-url="/back/titleList" href="javascript:;"> 列表 </a>
                 </li>
                 <li>
-                    <a href="javascript:;"> 消息</a>
+                    <a data-url="/back/titleAdd" href="javascript:;"> 添加 </a>
                 </li>
-                <li>
-                    <a href="javascript:;"> 消息</a>
-                </li>
-                <li>
-                    <a href="javascript:;"> 消息</a>
-                </li>
-                <li>
-                    <a href="javascript:;"> 消息</a>
-                </li>
-                <li>
-                    <a href="javascript:;"> 消息</a>
-                </li>
+
             </ul>
+        </li>
+        <li class="one">
+            <a   href="javascript:;" > <i class="fa fa-comment"></i> 评论 </a>
+
         </li>
     </ul>
 
@@ -77,8 +77,9 @@
             </a>
         </div>
     </nav>
-    <div class="stage_section pd_ten">
+    <div id="main_page" class="stage_section pd_ten">
 
+       <iframe id="main_src" src="/back/titleList" width="100%" height="100%" frameborder="0"></iframe>
     </div>
     <footer class="footer pd_ten text-right ">
         @2107-2018
@@ -99,6 +100,18 @@
         height:h ,
         size:"5px"
     });
+    $("#metismenu a").click(function () {
+        var url = $(this).data('url');
+
+       if(url != undefined){
+          $.get(url,function (data,status) {
+
+             if(status == 'success'){
+                 $("#main_src").get(0).src = url;
+             }
+           })
+       }
+    })
 </script>
 </body>
 </html>
