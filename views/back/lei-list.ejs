@@ -46,7 +46,7 @@
         }
     })
     function query(params) {
-        console.log(params)
+
         var param = {};
         param.limit = params.limit;
         param.offset = params.offset;
@@ -54,7 +54,25 @@
         return param;
     }
     function set(value,row,index) {
-        return '<a href="javascript:;">修改</a> | <a href="javascript:;">查看</a> | <a href="javascript:;">删除</a>' ;
+        return '<a onclick="" href="javascript:;">修改</a> | <a href="javascript:;">查看</a> | <a data-wei="'+row._id+'" onclick="detale(this)" href="javascript:;">删除</a>' ;
+    }
+    function detale(obj) {
+        var ids = $(obj).data('wei');
+
+        $.ajax({
+            url:'/back/detaleLei',
+            dataType :'json',
+            data:{
+                id : ids
+            },
+            type:'post',
+            success:function (data) {
+                if(data.status){
+                    alert(data.msg);
+                    //location.reload();
+                }
+            }
+        })
     }
 </script>
 </body>

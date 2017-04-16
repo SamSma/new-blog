@@ -88,4 +88,23 @@ router.post('/leiList',function (req,res) {
 
     //title.find({}).limit;
 })
+//分类删除
+router.post('/detaleLei',function (req,res) {
+    var id = req.body.id;
+
+    base.remove('title',{
+        _id : id
+    },function (err,doc) {
+
+      if(err){
+          console.log(err);
+          return ;
+      }
+      res.json({
+          status: 2,
+          msg : '删除成功'
+      })
+    })
+
+})
 module.exports = router;
