@@ -6,5 +6,9 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('index', { title: '我的博客' });
 });
+//阅读页面
+router.get('/read',function (req,res) {
+  res.render('read')
+})
 
 module.exports = router;
