@@ -113,12 +113,7 @@
     });
     nav();
     function nav() {
-        $.post('/back/leiList',{
-            limit : 10,
-            offset :0,
-            order :1
-
-        },function (data) {
+        $.post('/back/leiList',{},function (data) {
             if(data.status ==2){
                 var html = '';
                 console.log(data)

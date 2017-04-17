@@ -24,11 +24,11 @@
         method:'post',
         queryParams:query,
         sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
-        pagination: true,
-        sortOrder : '1',
+        pagination: false,
+     /*   sortOrder : '1',
         pageNumber:1,                       //初始化加载第一页，默认第一页
-        pageSize: 10,                       //每页的记录行数（*）
-        pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+        pageSize: 1,                       //每页的记录行数（*）
+        pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）*/
         columns:[{
             field : 'title',
             title : "名称",
@@ -41,16 +41,14 @@
         }],
         responseHandler:function (res) {
             res.rows  = res.data;
-            res.total = res.count;
           return  res;
         }
     })
     function query(params) {
 
         var param = {};
-        param.limit = params.limit;
-        param.offset = params.offset;
-        param.order = 1 ;
+
+
         return param;
     }
     function set(value,row,index) {
@@ -62,12 +60,13 @@
         $.ajax({
             url:'/back/detaleLei',
             dataType :'json',
-            data:{
+            contentType:"application/json",
+            data:JSON.stringify({
                 id : ids
-            },
+            }),
             type:'post',
             success:function (data) {
-                if(data.status){
+                if(data.status==2){
                     alert(data.msg);
                     //location.reload();
                 }

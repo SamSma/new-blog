@@ -34,6 +34,11 @@ base.find = function (bean,obj,callback) {
     var Info = require('./../model/'+bean);
     Info.find(obj,callback);
 }
+//分页查询
+base.findPage = function (bean,obj,sort,limit,skip,callback) {
+    var Info = require('./../model/'+bean);
+    Info.find(obj).sort(sort).limit(limit).skip(skip).exec(callback);
+}
 
 
 

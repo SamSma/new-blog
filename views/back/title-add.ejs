@@ -19,35 +19,83 @@
     <div class="form-group form-group-sm">
         <label class="col-sm-2 control-label" >分类</label>
         <div class="col-sm-10">
-            <select class="form-control" name="" id="">
-                <option value="0">请选择...</option>
+            <select class="form-control" name="" id="lei">
+
             </select>
         </div>
     </div>
     <div class="form-group form-group-sm">
         <label class="col-sm-2 control-label" >标题</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control">
+            <input id="title" type="text" class="form-control">
         </div>
     </div>
     <div class="form-group form-group-sm">
         <label class="col-sm-2 control-label" >简介</label>
         <div class="col-sm-10">
-            <textarea class="form-control" style="height: 100px;"></textarea>
+            <textarea id="intro" class="form-control" style="height: 100px;"></textarea>
 
         </div>
     </div>
     <div class="form-group form-group-sm">
         <label class="col-sm-2 control-label" >内容</label>
         <div class="col-sm-10">
-            <textarea class="form-control" style="height: 300px;"></textarea>
+            <textarea id="content" class="form-control" style="height: 300px;"></textarea>
 
         </div>
     </div>
 </form>
 </div>
-<a href="javascript:;" class="btn btn-block btn-primary">确定</a>
+<a href="javascript:;" id="sure" class="btn btn-block btn-primary">确定</a>
+
+<script src="/js/jquery.min.js"></script>
+<script>
+    $("#sure").on('click',function () {
+        save();
+    })
+    leiList();
+    function leiList() {
+        $.post('/back/leiList',{},function (data) {
+            if(data.status == 2){
+                var html = "";
+                html = "<option value='0'>请选择....</option>"
+                $.each(data.data,function (i,e) {
+                   html+="<option value='"+e._id+"'>"+e.title+"</option>";
+                })
+                $("#lei").append(html);
+            }
+        })
+    }
+
+    function save() {
+        var lei = $("#lei").val();
+        var title = $("#title").val();
+        var intro = $("#intro").val();
+        var content = $("#content").val();
+
+        $.ajax({
+            url:'/back//articleAdd',
+            type:'post',
+            data:{
+                lei:lei,
+                title:title,
+                intro :intro,
+                content :content
+            },
+            success:function (data) {
+                if(data.status == 2){
+                    alert(data.msg);
+                }
+            }
 
 
+
+        })
+
+    }
+
+
+
+</script>
 </body>
 </html>

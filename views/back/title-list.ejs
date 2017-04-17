@@ -12,8 +12,8 @@
 </head>
 <body>
 <div class="input-group" style="margin-bottom: 10px;">
-    <select class="form-control">
-        <option value="0">请选择...</option>
+    <select id="lei" class="form-control">
+        <option value="xuan">请选择...</option>
     </select>
     <a class="input-group-addon" href="javascript:;">分类筛选</a>
 </div>
@@ -25,54 +25,82 @@
 <script src="/js/bootstrap-table.min.js"></script>
 <script src="/js/bootstrap-table-zh-CN.min.js"></script>
 <script>
-    $("#list").bootstrapTable({
-            data:[{
-                name :"php",
-                lei : 'php',
-                con : "初始化加载第一页"
-            },
-            {
-                name :"php",
-                lei : 'php',
-                con : "初始化加载第一页"
-            },
-            {
-                name :"php",
-                lei : 'Java',
-                con : "初始化加载第一页"
-            }],
-        queryParams:query,
-        sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
-        pagination: true,
-        pageNumber:1,                       //初始化加载第一页，默认第一页
-        pageSize:10,                       //每页的记录行数（*）
-        pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
-        columns:[{
-            field : 'name',
-            title : "名称",
-            align : 'center'
-        },{
-            field : 'lei',
-            title :'分类',
-            align : 'center'
-        },{
-            field : 'con',
-            title :'内容',
-            align : 'center'
-        }
-        ,{
-            field : '',
-            title :'操作',
-            align : 'center',
-            formatter : set
-        }]
-    })
+    init();
+    leiList();
+    function leiList() {
+        $.post('/back/leiList',{},function (data) {
+            if(data.status == 2){
+                var html = "";
+               // html = "<option value='0'>请选择....</option>"
+                $.each(data.data,function (i,e) {
+                    html+="<option value='"+e._id+"'>"+e.title+"</option>";
+                })
+                $("#lei").append(html);
+            }
+        })
+    }
+    function init() {
+        $("#list").bootstrapTable({
+            url:'/back/titleList',
+            queryParams:query,
+            method : 'post',
+            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+            pagination: true,
+            pageNumber:1,                       //初始化加载第一页，默认第一页
+            pageSize:10,                       //每页的记录行数（*）
+            pageList: [10, 15, 25,50],        //可供选择的每页的行数（*）
+            columns:[{
+                field : 'title',
+                title : "名称",
+                align : 'center'
+            },{
+                field : 'intro',
+                title :'简介',
+                align : 'center'
+            }
+             ,{
+                    field : 'content',
+                    title :'内容',
+                    align : 'center'
+             }
+             ,
+                {
+                    field : 'leiList.title',
+                    title :'分类',
+                    align : 'center'
+                }
+                ,{
+                    field : '',
+                    title :'操作',
+                    align : 'center',
+                    formatter : set
+             }],
+            responseHandler:function (res) {
+
+                return {
+                    total: res.all,
+                    rows : res.data
+                }
+            }
+        })
+    }
+    
+    
+
     function query(params) {
-        console.log(params)
+       var param = {};
+        param = params;
+       param.order = 1;
+        param.secrch = $("#lei").val();
+       return param;
     }
     function set(value,row,index) {
         return '<a href="javascript:;">修改</a> | <a href="javascript:;">查看</a> | <a href="javascript:;">删除</a>' ;
     }
+    $("#lei").change(function () {
+
+        $("#list").bootstrapTable('refresh');
+    })
 </script>
 </body>
 </html>

@@ -4,7 +4,7 @@ var app = express();
 var router = express.Router();
 
 var base = require("../../controller/baseDao");
-
+var article = require('../../model/article');
 
 
 router.get('/',function (req,res) {
@@ -68,30 +68,22 @@ router.post('/leiAdd',function (req,res) {
 });
 //分类列表
 router.post('/leiList',function (req,res) {
-
-    var limit = req.body.limit;//显示
-    var order = Number(req.body.offset);//当前页
-    var sort = req.body.order;//排序
-    var title = require("../../model/title");
-    title.find({}).limit(limit).sort({_id: sort }).skip(Number(limit*order)).exec(function (err,docs) {
-        if(err){
-            console.log(err);
-            return ;
-        }
-        var count = docs.length;
-       res.json({
-           status : '2',
-           data : docs,
-           count :count
-       })
-    })
+  base.find('title',{},function (err,docs) {
+      if(err){
+          console.log(err);
+          return ;
+      }
+      res.json({
+          status :2,
+          data : docs
+      })
+  })
 
     //title.find({}).limit;
 })
 //分类删除
 router.post('/detaleLei',function (req,res) {
     var id = req.body.id;
-
     base.remove('title',{
         _id : id
     },function (err,doc) {
@@ -106,5 +98,50 @@ router.post('/detaleLei',function (req,res) {
       })
     })
 
+});
+//文章添加
+router.post('/articleAdd',function (req,res) {
+
+    var a = new article({
+        title : req.body.title,
+        intro : req.body.intro ,
+        content : req.body.content ,
+        leiList : req.body.lei
+    })
+    a.save(function () {
+        res.json({
+            status : 2,
+            msg :'添加成功'
+        })
+    });
+
+
+});
+//文章列表
+router.post('/titleList',function (req,res) {
+    var limit = req.body.limit;//
+    var offset = req.body.offset;//过滤多少条
+    var order =  req.body.order;//排序
+    var lei = req.body.secrch ;
+    var count = 0;
+    article.count(function (err,doc) {
+        if(err){
+            console.log(err)
+        }
+        count = doc;
+    })
+    var obj = lei=="xuan" ? {} :{ leiList : lei };
+   article.find(obj).sort({ _id : order} ).limit(limit).skip(offset).populate('leiList').exec(function (err,docs) {
+        if(err){
+            console.log(err);
+            return ;
+        }
+        res.json({
+            all : count,
+            data : docs
+        })
+    })
 })
+
+
 module.exports = router;
