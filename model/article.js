@@ -9,6 +9,7 @@ var articleSchema = new mongoose.Schema({
     title : 'string',
     intro  : 'string',
     content : 'string',
+   
     leiList :{
         type : mongoose.Schema.Types.ObjectId ,
         ref : 'title'

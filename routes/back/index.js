@@ -101,6 +101,20 @@ router.post('/detaleLei',function (req,res) {
 });
 //文章添加
 router.post('/articleAdd',function (req,res) {
+    var a = new article({
+        title : req.body.title,
+        intro : req.body.intro ,
+        content : req.body.content ,
+        leiList : req.body.lei
+    })
+    a.save().then(function () {
+        res.json({
+            status : 2,
+            msg :'添加成功'
+        })
+    });
+})
+/*router.post('/articleAdd',function (req,res) {
 
     var a = new article({
         title : req.body.title,
@@ -116,7 +130,7 @@ router.post('/articleAdd',function (req,res) {
     });
 
 
-});
+});*/
 //文章列表
 router.post('/titleList',function (req,res) {
     var limit = req.body.limit;//
